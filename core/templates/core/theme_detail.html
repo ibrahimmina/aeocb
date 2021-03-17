@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'core_theme_list' %}">
+    theme Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>month</td><td>{{ object.month }}</td></tr>
+    <tr><td>theme_hashtag</td><td>{{ object.theme_hashtag }}</td></tr>
+    <tr><td>theme</td><td>{{ object.theme }}</td></tr>
+    <tr><td>year</td><td>{{ object.year }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

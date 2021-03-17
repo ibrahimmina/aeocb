@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'core_verse_list' %}">
+    verse Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>verse_hashtag</td><td>{{ object.verse_hashtag }}</td></tr>
+    <tr><td>verse_french</td><td>{{ object.verse_french }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>verse_kirundi</td><td>{{ object.verse_kirundi }}</td></tr>
+    <tr><td>verse_english</td><td>{{ object.verse_english }}</td></tr>
+    <tr><td>verse_image</td><td>{{ object.verse_image }}</td></tr>
+    <tr><td>date</td><td>{{ object.date }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}
