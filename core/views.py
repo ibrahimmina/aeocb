@@ -43,3 +43,24 @@ class themeUpdateView(generic.UpdateView):
     model = models.theme
     form_class = forms.themeForm
     pk_url_kwarg = "pk"
+
+
+class postListView(generic.ListView):
+    model = models.post
+    form_class = forms.postForm
+
+
+class postCreateView(generic.CreateView):
+    model = models.post
+    form_class = forms.postForm
+
+
+class postDetailView(generic.DetailView):
+    model = models.post
+    form_class = forms.postForm
+
+
+class postUpdateView(generic.UpdateView):
+    model = models.post
+    form_class = forms.postForm
+    pk_url_kwarg = "pk"

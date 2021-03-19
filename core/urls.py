@@ -8,6 +8,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register("verse", api.verseViewSet)
 router.register("theme", api.themeViewSet)
+router.register("post", api.postViewSet)
 
 urlpatterns = (
     path("api/v1/", include(router.urls)),
@@ -19,4 +20,8 @@ urlpatterns = (
     path("core/theme/create/", views.themeCreateView.as_view(), name="core_theme_create"),
     path("core/theme/detail/<int:pk>/", views.themeDetailView.as_view(), name="core_theme_detail"),
     path("core/theme/update/<int:pk>/", views.themeUpdateView.as_view(), name="core_theme_update"),
+    path("core/post/", views.postListView.as_view(), name="core_post_list"),
+    path("core/post/create/", views.postCreateView.as_view(), name="core_post_create"),
+    path("core/post/detail/<int:pk>/", views.postDetailView.as_view(), name="core_post_detail"),
+    path("core/post/update/<int:pk>/", views.postUpdateView.as_view(), name="core_post_update"),
 )

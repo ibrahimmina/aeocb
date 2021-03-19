@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'core_post_list' %}">
+    post Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>post_date</td><td>{{ object.post_date }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>post_type</td><td>{{ object.post_type }}</td></tr>
+    <tr><td>post_text</td><td>{{ object.post_text }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

@@ -14,24 +14,24 @@ class verseAdminForm(forms.ModelForm):
 class verseAdmin(admin.ModelAdmin):
     form = verseAdminForm
     list_display = [
-        "last_updated",
-        "verse_hashtag",
-        "verse_french",
-        "created",
-        "verse_kirundi",
         "verse_english",
+        "last_updated",
+        "created",
         "verse_image",
-        "date",
+        "verse_date",
+        "verse_french",
+        "verse_kirundi",
+        "verse_hashtag",
     ]
     readonly_fields = [
-        "last_updated",
-        "verse_hashtag",
-        "verse_french",
-        "created",
-        "verse_kirundi",
         "verse_english",
+        "last_updated",
+        "created",
         "verse_image",
-        "date",
+        "verse_date",
+        "verse_french",
+        "verse_kirundi",
+        "verse_hashtag",
     ]
 
 
@@ -45,22 +45,46 @@ class themeAdminForm(forms.ModelForm):
 class themeAdmin(admin.ModelAdmin):
     form = themeAdminForm
     list_display = [
-        "created",
-        "month",
-        "theme_hashtag",
         "theme",
-        "year",
+        "theme_month",
+        "created",
+        "theme_hashtag",
         "last_updated",
     ]
     readonly_fields = [
-        "created",
-        "month",
-        "theme_hashtag",
         "theme",
-        "year",
+        "theme_month",
+        "created",
+        "theme_hashtag",
         "last_updated",
+    ]
+
+
+class postAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.post
+        fields = "__all__"
+
+
+class postAdmin(admin.ModelAdmin):
+    form = postAdminForm
+    list_display = [
+        "post_date",
+        "last_updated",
+        "created",
+        "post_type",
+        "post_text",
+    ]
+    readonly_fields = [
+        "post_date",
+        "last_updated",
+        "created",
+        "post_type",
+        "post_text",
     ]
 
 
 admin.site.register(models.verse, verseAdmin)
 admin.site.register(models.theme, themeAdmin)
+admin.site.register(models.post, postAdmin)

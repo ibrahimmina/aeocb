@@ -18,3 +18,11 @@ class themeViewSet(viewsets.ModelViewSet):
     queryset = models.theme.objects.all()
     serializer_class = serializers.themeSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class postViewSet(viewsets.ModelViewSet):
+    """ViewSet for the post class"""
+
+    queryset = models.post.objects.all()
+    serializer_class = serializers.postSerializer
+    permission_classes = [permissions.IsAuthenticated]

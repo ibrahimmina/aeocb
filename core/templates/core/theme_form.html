@@ -13,24 +13,20 @@
   {% csrf_token %}
   {{form.errors}}
   <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="created">created: </label>
-  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="month">month: </label>
-  <input class="form-control col-sm-10" id="month" type="number" name="month" value="{{ object.month }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="theme_hashtag">theme_hashtag: </label>
-  <input class="form-control col-sm-10" id="theme_hashtag" type="text" name="theme_hashtag" value="{{ object.theme_hashtag }}">
-  </div>
-  <div class="form-group row">
   <label class="col-sm-2 col-form-label" for="theme">theme: </label>
   <input class="form-control col-sm-10" id="theme" type="text" name="theme" value="{{ object.theme }}">
   </div>
   <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="year">year: </label>
-  <input class="form-control col-sm-10" id="year" type="number" name="year" value="{{ object.year }}">
+  <label class="col-sm-2 col-form-label" for="theme_month">theme_month: </label>
+  <input class="form-control col-sm-10" id="theme_month" type="date" name="theme_month" value="{{ object.theme_month }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="created">created: </label>
+  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="theme_hashtag">theme_hashtag: </label>
+  <input class="form-control col-sm-10" id="theme_hashtag" type="text" name="theme_hashtag" value="{{ object.theme_hashtag }}">
   </div>
   <div class="form-group row">
   <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
