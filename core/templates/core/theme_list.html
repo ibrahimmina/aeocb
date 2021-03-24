@@ -1,8 +1,26 @@
 
 {% extends "base.html" %}
 {% block content %}
+<h2>Themes</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Theme Month</th>
+        <th>Theme</th>
+      </tr>
+    </thead>
+    <tbody>
 {% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
+      <tr>
+        <td><div><a href="{{object.get_absolute_url}}">{{object}}</a></div></td>
+        <td>{{object.theme_month | date:'M - Y'}}</td>
+        <td>{{object.theme}}</td>
+      </tr>
 {% endfor %}
+</tbody>
+</table>
+</div>
 <div><a class="btn btn-primary" href="{% url 'core_theme_create' %}">Create a new theme</a></div>
 {% endblock %}

@@ -3,22 +3,20 @@
 {% load static %}
 {% block content %}
     
-<p>
-    <a class="btn btn-light" href="{% url 'core_verse_list' %}">
-    verse Listing
-    </a>
-</p>
-    
-<table class="table">
-    <tr><td>verse_english</td><td>{{ object.verse_english }}</td></tr>
-    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>verse_image</td><td>{{ object.verse_image }}</td></tr>
-    <tr><td>verse_date</td><td>{{ object.verse_date }}</td></tr>
-    <tr><td>verse_french</td><td>{{ object.verse_french }}</td></tr>
-    <tr><td>verse_kirundi</td><td>{{ object.verse_kirundi }}</td></tr>
-    <tr><td>verse_hashtag</td><td>{{ object.verse_hashtag }}</td></tr>
-</table>
+<h2>Verse Details</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <tr><th scope="row">Verse Date</th><td>{{ object.verse_date }}</td></tr>
+    <tr><th scope="row">Verse French</th><td>{{ object.verse_french }}</td></tr>
+    <tr><th scope="row">Verse English</th><td>{{ object.verse_english }}</td></tr>
+    <tr><th scope="row">Verse Kirundi</th><td>{{ object.verse_kirundi }}</td></tr>
+    <tr><th scope="row">Verse Hashtag</th><td>{{ object.verse_hashtag }}</td></tr>
+    <tr><th scope="row">Verse Image</th><td><img src="{{object.verse_image.url}}"></td></tr>
+    <tr><th scope="row">Last Updated</th><td>{{ object.last_updated }}</td></tr>
+  </table>
+</div>
+
+
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
 {% endblock %}

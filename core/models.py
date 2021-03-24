@@ -31,7 +31,6 @@ class verse(models.Model):
     def get_update_url(self):
         return reverse("core_verse_update", args=(self.pk,))
 
-
 class theme(models.Model):
 
     # Fields
@@ -46,6 +45,9 @@ class theme(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    def get_theme_month(self):
+        return str(self.theme_month.month)
 
     def get_absolute_url(self):
         return reverse("core_theme_detail", args=(self.pk,))
