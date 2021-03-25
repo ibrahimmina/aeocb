@@ -59,16 +59,6 @@ def create_ContentType(**kwargs):
     return ContentType.objects.create(**defaults)
 
 
-def create_core_verse(**kwargs):
-    defaults = {}
-    defaults["verse_english"] = ""
-    defaults["verse_image"] = ""
-    defaults["verse_date"] = datetime.now()
-    defaults["verse_french"] = ""
-    defaults["verse_kirundi"] = ""
-    defaults["verse_hashtag"] = ""
-    defaults.update(**kwargs)
-    return core_models.verse.objects.create(**defaults)
 def create_core_theme(**kwargs):
     defaults = {}
     defaults["theme"] = ""
@@ -76,10 +66,28 @@ def create_core_theme(**kwargs):
     defaults["theme_hashtag"] = ""
     defaults.update(**kwargs)
     return core_models.theme.objects.create(**defaults)
+def create_core_verse(**kwargs):
+    defaults = {}
+    defaults["verse_hashtag"] = ""
+    defaults["verse_date"] = datetime.now()
+    defaults["verse_kirundi"] = ""
+    defaults["verse_english"] = ""
+    defaults["verse_image"] = ""
+    defaults["verse_french"] = ""
+    defaults.update(**kwargs)
+    return core_models.verse.objects.create(**defaults)
 def create_core_post(**kwargs):
     defaults = {}
     defaults["post_date"] = datetime.now()
-    defaults["post_type"] = ""
+    defaults["post_image"] = ""
     defaults["post_text"] = ""
+    defaults["post_type"] = ""
     defaults.update(**kwargs)
     return core_models.post.objects.create(**defaults)
+def create_core_qoute(**kwargs):
+    defaults = {}
+    defaults["qoute_date"] = datetime.now()
+    defaults["qoute_image"] = ""
+    defaults["qoute_hashtag"] = ""
+    defaults.update(**kwargs)
+    return core_models.qoute.objects.create(**defaults)

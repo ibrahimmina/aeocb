@@ -13,55 +13,36 @@
   <div class="form-group row">
     <label class="col-sm-2 col-form-label" for="verse_image">verse_image: </label>
     <input class="form-control col-sm-10" id="verse_image" onchange="loadFile(event)" type="file" name="verse_image" value="{{ object.verse_image }}">
+    <img class="img-thumbnail" id="verse_image_show"/>
   </div>  	
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="verse_french">verse_french: </label>
+    <input class="form-control col-sm-3" id="verse_french" type="text" name="verse_french" value="{{ object.verse_french }}">
+  </div>  
   <div class="form-group row">
     <label class="col-sm-2 col-form-label" for="verse_english">verse_english: </label>
     <input class="form-control col-sm-5" id="verse_english" type="text" name="verse_english" value="{{ object.verse_english }}">
-    <input class="form-control col-sm-2" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-control col-sm-3" for="flexCheckDefault">Include in Image</label>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label" for="verse_french">verse_french: </label>
-    <input class="form-control col-sm-5" id="verse_french" type="text" name="verse_french" value="{{ object.verse_french }}">
-    <input class="form-control col-sm-2" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-control col-sm-3" for="flexCheckDefault">Include in Image</label>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label" for="verse_kirundi">verse_kirundi: </label>
     <input class="form-control col-sm-5" id="verse_kirundi" type="text" name="verse_kirundi" value="{{ object.verse_kirundi }}">
-    <input class="form-control col-sm-2" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-control col-sm-3" for="flexCheckDefault">Include in Image</label>
   </div>
     <div class="form-group row">
     <label class="col-sm-2 col-form-label" for="verse_hashtag">verse_hashtag: </label>
     <input class="form-control col-sm-5" id="verse_hashtag" type="text" name="verse_hashtag" value="{{ object.verse_hashtag }}">
-    <input class="form-control col-sm-2" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-control col-sm-3" for="flexCheckDefault">Include in Image</label>
   </div>  
   <div class="form-group row hidden">
-  <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
-  <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
-  </div>
-  <div class="form-group row hidden">
-  <label class="col-sm-2 col-form-label" for="created">created: </label>
-  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
+    <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
+    <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
   </div>
 
   <input type="submit" value="Save" class="btn btn-primary">
-  <div class="container">
-    <div class="row">
-      <div class="container" style="position:relative;text-align: center;">
-        <img class="col-sm-4" id="output1"/>
-        <div class="bottom-left" style="position: absolute;bottom: 8px;left: 16px;">Bottom Left</div>
-      </div>
-    </div>  
-  </div>
 
 </form>
 
 <script>
   var loadFile = function(event) {
-    var image1 = document.getElementById('output1');
+    var image1 = document.getElementById('verse_image_show');
     image1.src = URL.createObjectURL(event.target.files[0]);
 
   };

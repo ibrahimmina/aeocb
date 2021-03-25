@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+ 
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="qoute_date">Qoute Date: </label>
+    <input class="form-control col-sm-10" id="qoute_date" type="date" name="qoute_date" value="{{ object.qoute_date }}">
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="qoute_image">Qoute Image: </label>
+    <input class="form-control col-sm-10" id="qoute_image" onchange="loadFile(event)" type="file" name="qoute_image" value="{{ object.qoute_image }}">
+    <img class="img-thumbnail" id="qoute_image_show"/>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="qoute_hashtag">Qoute Hashtag: </label>
+  <input class="form-control col-sm-10" id="qoute_hashtag" type="text" name="qoute_hashtag" value="{{ object.qoute_hashtag }}">
+  </div>
+  <div class="form-group row hidden">
+    <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
+    <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
+  </div>  
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+<script>
+  var loadFile = function(event) {
+    var image1 = document.getElementById('qoute_image_show');
+    image1.src = URL.createObjectURL(event.target.files[0]);
+
+  };
+</script>
+{% endblock %}
