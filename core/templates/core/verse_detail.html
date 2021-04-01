@@ -11,7 +11,7 @@
     <tr><th scope="row">Verse English</th><td>{{ object.verse_english }}</td></tr>
     <tr><th scope="row">Verse Kirundi</th><td>{{ object.verse_kirundi }}</td></tr>
     <tr><th scope="row">Verse Hashtag</th><td>{{ object.verse_hashtag }}</td></tr>
-    <tr><th scope="row">Verse Image</th><td><img src="{{object.verse_image.url}}"></td></tr>
+    <tr><th scope="row">Verse Image</th><td><img src="{{object.get_photo_url|default_if_none:'#'}}"></td></tr>
     <tr><th scope="row">Last Updated</th><td>{{ object.last_updated }}</td></tr>
   </table>
 </div>

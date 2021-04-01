@@ -13,7 +13,7 @@
     <tr><td>created</td><td>{{ object.created }}</td></tr>
     <tr><td>qoute_date</td><td>{{ object.qoute_date }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>qoute_image</td><td>{{ object.qoute_image }}</td></tr>
+    <tr><td>qoute_image</td><td><img src="{{object.get_photo_url|default_if_none:'#'}}"></td></tr>
     <tr><td>qoute_hashtag</td><td>{{ object.qoute_hashtag }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>

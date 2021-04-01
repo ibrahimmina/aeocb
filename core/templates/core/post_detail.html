@@ -8,7 +8,7 @@
     <tr><th scope="row">Post Date</th><td>{{ object.post_date }}</td></tr>
     <tr><th scope="row">Post Type</th><td>{{ object.post_type }}</td></tr>
     <tr><th scope="row">Post Text</th><td>{{ object.post_text }}</td></tr>
-    <tr><th scope="row">Post Image</th><td><img src="{{object.post_image.url}}"></td></tr>
+    <tr><th scope="row">Post Image</th><td><img src="{{object.get_photo_url|default_if_none:'#'}}"></td></tr>
     <tr><th scope="row">Last Updated</th><td>{{ object.last_updated }}</td></tr>
   </table>
 </div>      

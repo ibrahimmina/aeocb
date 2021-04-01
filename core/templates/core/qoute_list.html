@@ -1,8 +1,28 @@
 
 {% extends "base.html" %}
 {% block content %}
+<h2>Qoutes</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Qoute Date</th>
+        <th>Qoute Hashtag</th>
+      </tr>
+    </thead>
+    <tbody>
+      
 {% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
+      <tr>
+        <td><div><a href="{{object.get_absolute_url}}">{{object}}</a></div></td>
+        <td>{{object.qoute_date}}</td>
+        <td>{{object.qoute_hashtag}}</td>
+      </tr>
+
 {% endfor %}
+</tbody>
+</table>
+</div>
 <div><a class="btn btn-primary" href="{% url 'core_qoute_create' %}">Create a new qoute</a></div>
 {% endblock %}
