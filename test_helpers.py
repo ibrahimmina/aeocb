@@ -61,33 +61,27 @@ def create_ContentType(**kwargs):
 
 def create_core_theme(**kwargs):
     defaults = {}
-    defaults["theme"] = ""
-    defaults["theme_month"] = datetime.now()
+    defaults["theme_from_date"] = datetime.now()
     defaults["theme_hashtag"] = ""
+    defaults["theme_to_date"] = datetime.now()
+    defaults["theme"] = ""
     defaults.update(**kwargs)
     return core_models.theme.objects.create(**defaults)
-def create_core_verse(**kwargs):
-    defaults = {}
-    defaults["verse_hashtag"] = ""
-    defaults["verse_date"] = datetime.now()
-    defaults["verse_kirundi"] = ""
-    defaults["verse_english"] = ""
-    defaults["verse_image"] = ""
-    defaults["verse_french"] = ""
-    defaults.update(**kwargs)
-    return core_models.verse.objects.create(**defaults)
 def create_core_post(**kwargs):
     defaults = {}
-    defaults["post_date"] = datetime.now()
-    defaults["post_image"] = ""
-    defaults["post_text"] = ""
+    defaults["datetime"] = datetime.now()
+    defaults["english"] = ""
+    defaults["hashtag"] = ""
     defaults["post_type"] = ""
+    defaults["post_text"] = ""
+    defaults["french"] = ""
+    defaults["kirundi"] = ""
     defaults.update(**kwargs)
     return core_models.post.objects.create(**defaults)
-def create_core_qoute(**kwargs):
+def create_core_post_image(**kwargs):
     defaults = {}
-    defaults["qoute_date"] = datetime.now()
-    defaults["qoute_image"] = ""
-    defaults["qoute_hashtag"] = ""
+    defaults["post_image"] = ""
+    if "post" not in kwargs:
+        defaults["post"] = create_core_post()
     defaults.update(**kwargs)
-    return core_models.qoute.objects.create(**defaults)
+    return core_models.post_image.objects.create(**defaults)

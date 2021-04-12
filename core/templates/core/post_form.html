@@ -3,33 +3,198 @@
 {% load static %}
 {% block content %}
     
-    
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{form.errors}}
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="post_date">post_date: </label>
-  <input class="form-control col-sm-10" id="post_date" type="date" name="post_date" value="{{ object.post_date }}">
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" for="datetime">Post Date Time: </label>
+    </div>
+    <div class="p-2 d-flex col-md-11 align-self-center">
+      <input class="form-control col-sm-10" id="datetime" type="datetime-local" name="datetime" value="{{ object.datetime }}" onchange="getThemes()">
+    </div>
+  </div>  
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" >Post Theme: </label>
+    </div>
+    <div class="p-2 d-flex col-md-11 align-self-center">
+      <div class="alert alert-dark" role="alert" id="theme">Choose Date Time to Populate theme</div>
+    </div>
   </div>
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" >Post Theme Hashtag: </label>
+    </div>
+    <div class="p-2 d-flex col-md-9 align-self-center">
+      <div class="alert alert-dark" role="alert" id="theme_hasthag">Choose Date Time to Populate theme hashtag</div>  
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <input type="checkbox" id="add_theme_hashtag_post" onclick="checkBoxClicked();">
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+      <label class="form-check-label" for="add_french_post">Add to Post</label>
+    </div>  
+  </div>
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" for="post_type">Post Type: </label>
+    </div>
+    <div class="p-2 d-flex col-md-11 align-self-center">
+      <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}">
+    </div>
+  </div>  
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-form-label" for="french">French: </label>
+    </div>
+    <div class="p-2 d-flex col-md-9 align-self-center">
+      <textarea class="form-control" id="french" type="text" name="french" value="{{ object.french }}"></textarea>
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <input type="checkbox" id="add_french_post" onclick="checkBoxClicked();">
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+      <label class="form-check-label" for="add_french_post">Add to Post</label>
+    </div>  
+  </div>    
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-form-label" for="english">English: </label>
+    </div>
+    <div class="p-2 d-flex col-md-9 align-self-center">
+      <textarea class="form-control" id="english" type="text" name="english" value="{{ object.english }}"></textarea>
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <input type="checkbox" id="add_english_post" onclick="checkBoxClicked();">
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+      <label class="form-check-label" for="add_english_post">Add to Post</label>
+    </div>  
+  </div>  
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-form-label" for="kirundi">Kirundi: </label>
+    </div>
+    <div class="p-2 d-flex col-md-9 align-self-center">
+      <textarea class="form-control" id="kirundi" type="text" name="kirundi" value="{{ object.kirundi }}"></textarea>
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <input type="checkbox" id="add_kirundi_post" onclick="checkBoxClicked();">
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+      <label class="form-check-label" for="add_kirundi_post">Add to Post</label>
+    </div>  
+  </div>  
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-form-label" for="hashtag">Hashtag: </label>
+    </div>
+    <div class="p-2 d-flex col-md-9 align-self-center">
+      <textarea class="form-control" id="hashtag" type="text" name="hashtag" value="{{ object.hashtag }}"></textarea>
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <input type="checkbox" id="add_hashtag_post" onclick="checkBoxClicked();">
+    </div>
+    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+      <label class="form-check-label" for="add_hashtag_post">Add to Post</label>
+    </div>  
+  </div>  
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" for="post_text">Post Text: </label>
+    </div>
+    <div class="p-2 d-flex col-md-11 align-self-center">
+      <textarea rows="5" class="form-control col-sm-10" id="post_text" type="text" name="post_text" value="{{ object.post_text }}"></textarea>
+    </div>
+  </div>  
+  <div class="card-body">
+      <img src="/static/fbpost_head.jpg" class="card-img-top">
+      <p class="card-text" id="post_text_card"></p>
+      <img src="/static/emptypost.png"  class="card-img-top" id="show_post_image">
+      <img src="/static/fbpost_bottom.jpg" class="card-img-top">
+  </div>
+
   <div class="form-group row">
   <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
   <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
   </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="created">created: </label>
-  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="post_type">post_type: </label>
-  <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="post_text">post_text: </label>
-  <input class="form-control col-sm-10" id="post_text" type="text" name="post_text" value="{{ object.post_text }}">
-  </div>
   <input type="submit" value="Save" class="btn btn-primary">
 </form>
+<script>
+  var datetime = document.getElementById("datetime");
+  var theme = document.getElementById("theme");
+  var theme_hasthag = document.getElementById("theme_hasthag");
+  function getThemes() {
+    console.log (datetime.value)
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      var myObj = JSON.parse(this.response);
+      theme.innerHTML = myObj[0]['theme'];
+      theme_hasthag.innerHTML = myObj[0]['theme_hashtag'];
+    };
+    xhttp.open("GET", "http://127.0.0.1:8000/core/api/v1/themes/?datetime=" + datetime.value, true);
+    xhttp.send();
+  }
 
+  add_theme_hashtag_post = document.getElementById("add_theme_hashtag_post");
+  add_french_post = document.getElementById("add_french_post");
+  add_english_post = document.getElementById("add_english_post");
+  add_kirundi_post = document.getElementById("add_kirundi_post");
+  add_hashtag_post = document.getElementById("add_hashtag_post");
 
+  theme_hasthag = document.getElementById("theme_hasthag");
+  french = document.getElementById("french");
+  english = document.getElementById("english");
+  kirundi = document.getElementById("kirundi");
+  hashtag = document.getElementById("hashtag"); 
 
+  var final_post_text_French = "";
+  var final_post_text_English = "";
+  var final_post_text_Kirundi = "";
+  var final_post_text_Hashtag = "";
+  var final_post_text_Theme_Hashtag = "";
+
+  var final_post_text = "";
+  var final_post_hashtag = "";
+
+  function checkBoxClicked(){
+    if (add_theme_hashtag_post.checked){
+      final_post_text_Theme_Hashtag = theme_hasthag.innerHTML;
+    } else {
+      final_post_text_Theme_Hashtag ="";
+    }
+
+    if (add_french_post.checked){
+      final_post_text_French = french.value;
+    } else {
+      final_post_text_French = "";
+    }
+    
+    if (add_english_post.checked){
+      final_post_text_English = english.value;
+    } else {
+      final_post_text_English = "";
+    }
+    
+    if (add_kirundi_post.checked){
+      final_post_text_Kirundi = kirundi.value;
+    } else {
+      final_post_text_Kirundi = "";
+    }
+    
+    if (add_hashtag_post.checked){
+      final_post_text_Hashtag = hashtag.value;
+    } else {
+      final_post_text_Hashtag = "";
+    }
+    
+    final_post_text = final_post_text_French + "\n" + final_post_text_English + "\n" + final_post_text_Kirundi;
+    final_post_hashtag = final_post_text_Theme_Hashtag + "\n" + final_post_text_Hashtag;
+
+    document.getElementById("post_text_card").innerHTML = final_post_text + "\n" + final_post_hashtag;
+    document.getElementById("post_text").value = final_post_text + "\n" + final_post_hashtag;
+
+  }
+  </script>
 {% endblock %}

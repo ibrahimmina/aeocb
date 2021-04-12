@@ -7,7 +7,8 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Theme Month</th>
+        <th>Theme From Date</th>
+        <th>Theme To Date</th>
         <th>Theme</th>
       </tr>
     </thead>
@@ -15,7 +16,8 @@
 {% for object in object_list %}
       <tr>
         <td><div><a href="{{object.get_absolute_url}}">{{object}}</a></div></td>
-        <td>{{object.theme_month | date:'M - Y'}}</td>
+        <td>{{object.theme_from_date}}</td>
+        <td>{{object.theme_to_date}}</td>
         <td>{{object.theme}}</td>
       </tr>
 {% endfor %}

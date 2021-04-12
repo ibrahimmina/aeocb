@@ -14,49 +14,20 @@ class themeAdminForm(forms.ModelForm):
 class themeAdmin(admin.ModelAdmin):
     form = themeAdminForm
     list_display = [
-        "created",
         "last_updated",
-        "theme",
-        "theme_month",
+        "theme_from_date",
         "theme_hashtag",
+        "created",
+        "theme_to_date",
+        "theme",
     ]
     readonly_fields = [
-        "created",
         "last_updated",
-        "theme",
-        "theme_month",
+        "theme_from_date",
         "theme_hashtag",
-    ]
-
-
-class verseAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = models.verse
-        fields = "__all__"
-
-
-class verseAdmin(admin.ModelAdmin):
-    form = verseAdminForm
-    list_display = [
-        "verse_hashtag",
         "created",
-        "verse_date",
-        "verse_kirundi",
-        "verse_english",
-        "verse_image",
-        "last_updated",
-        "verse_french",
-    ]
-    readonly_fields = [
-        "verse_hashtag",
-        "created",
-        "verse_date",
-        "verse_kirundi",
-        "verse_english",
-        "verse_image",
-        "last_updated",
-        "verse_french",
+        "theme_to_date",
+        "theme",
     ]
 
 
@@ -70,49 +41,50 @@ class postAdminForm(forms.ModelForm):
 class postAdmin(admin.ModelAdmin):
     form = postAdminForm
     list_display = [
-        "post_date",
-        "post_image",
-        "created",
-        "post_text",
+        "datetime",
+        "english",
+        "hashtag",
         "post_type",
+        "post_text",
+        "french",
         "last_updated",
+        "kirundi",
+        "created",
     ]
     readonly_fields = [
-        "post_date",
-        "post_image",
-        "created",
-        "post_text",
+        "datetime",
+        "english",
+        "hashtag",
         "post_type",
+        "post_text",
+        "french",
         "last_updated",
+        "kirundi",
+        "created",
     ]
 
 
-class qouteAdminForm(forms.ModelForm):
+class post_imageAdminForm(forms.ModelForm):
 
     class Meta:
-        model = models.qoute
+        model = models.post_image
         fields = "__all__"
 
 
-class qouteAdmin(admin.ModelAdmin):
-    form = qouteAdminForm
+class post_imageAdmin(admin.ModelAdmin):
+    form = post_imageAdminForm
     list_display = [
-        "created",
-        "qoute_date",
         "last_updated",
-        "qoute_image",
-        "qoute_hashtag",
+        "post_image",
+        "created",
     ]
     readonly_fields = [
-        "created",
-        "qoute_date",
         "last_updated",
-        "qoute_image",
-        "qoute_hashtag",
+        "post_image",
+        "created",
     ]
 
 
 admin.site.register(models.theme, themeAdmin)
-admin.site.register(models.verse, verseAdmin)
 admin.site.register(models.post, postAdmin)
-admin.site.register(models.qoute, qouteAdmin)
+admin.site.register(models.post_image, post_imageAdmin)

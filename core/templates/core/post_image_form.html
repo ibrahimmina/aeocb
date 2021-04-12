@@ -1,0 +1,275 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-sm-2 col-form-label" for="datetime">Post Date Time: </label>
+  </div>
+  <div class="p-2 d-flex col-md-11 align-self-center">
+    <input class="form-control col-sm-10" id="datetime" type="text" name="datetime" value="{{ object.post.datetime }}"disabled>
+  </div>
+</div>  
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-sm-2 col-form-label" for="post_type">Post Type: </label>
+  </div>
+  <div class="p-2 d-flex col-md-11 align-self-center">
+    <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post.post_type }}" disabled>
+  </div>
+</div>  
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-form-label" for="french">French: </label>
+  </div>
+  <div class="p-2 d-flex col-md-9 align-self-center">
+    <textarea class="form-control" id="french" type="text" name="french" disabled>{{ object.post.french }}</textarea>
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <input type="checkbox" id="add_french_image" onclick="checkBoxClickedImage();">
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+    <label class="form-check-label" for="add_french_image">Add to Image</label>
+  </div>  
+</div>    
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-form-label" for="english">English: </label>
+  </div>
+  <div class="p-2 d-flex col-md-9 align-self-center">
+    <textarea class="form-control" id="english" type="text" name="english" disabled>{{ object.post.english }}</textarea>
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <input type="checkbox" id="add_english_image" onclick="checkBoxClickedImage();">
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+    <label class="form-check-label" for="add_english_image">Add to Image</label>
+  </div>  
+</div>  
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-form-label" for="kirundi">Kirundi: </label>
+  </div>
+  <div class="p-2 d-flex col-md-9 align-self-center">
+    <textarea class="form-control" id="kirundi" type="text" name="kirundi" disabled>{{ object.post.kirundi }}</textarea>
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <input type="checkbox" id="add_kirundi_image" onclick="checkBoxClickedImage();">
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+    <label class="form-check-label" for="add_kirundi_image">Add to Image</label>
+  </div>  
+</div>  
+<div class="d-flex flex-row align-items-stretch">
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <label class="col-form-label" for="hashtag">Hashtag: </label>
+  </div>
+  <div class="p-2 d-flex col-md-9 align-self-center">
+    <textarea class="form-control" id="hashtag" type="text" name="hashtag" disabled>{{ object.post.hashtag }}</textarea>
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center">
+    <input type="checkbox" id="add_hashtag_image" onclick="checkBoxClickedImage();">
+  </div>
+  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
+    <label class="form-check-label" for="add_hashtag_image">Add to Image</label>
+  </div>  
+</div>   
+  
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="d-flex flex-row align-items-stretch">
+    <div class="p-2 d-flex col-md-1 align-self-center">
+      <label class="col-sm-2 col-form-label" for="post_image">post_image: </label>
+    </div>
+    <div class="p-2 d-flex col-md-11 align-self-center">
+      <input class="form-control col-sm-10" id="post_image" type="file" name="post_image" value="{{ object.post_image }}" onchange="loadFile(event)">
+    </div>
+  </div> 
+
+  <div class="card">
+      <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h5>Text Control</h5>
+                        <label for="text_move_horizontal" class="form-label">Horizontal</label>
+                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_horizontal">
+                        <label for="text_move_vertical" class="form-label">Vertical</label>
+                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_vertical"> 
+
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="image_text_font" id="Work-Sans" checked onclick="workSansClick()">
+                        <label class="form-check-label" style="font-family: 'Work Sans';font-size: 30px;" for="Work-Sans">Work Sans</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="image_text_font" id="Space-Grotesk" onclick="spaceGroteskClick()">
+                        <label class="form-check-label" style="font-family: 'Space Grotesk';font-size: 30px;" for="Space-Grotesk">Space Grotesk</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="image_text_font" id="Fira-Sans" onclick="firaSansClick()">
+                        <label class="form-check-label" style="font-family: 'Fira Sans';font-size: 30px;" for="Fira-Sans">Fira Sans</label>
+                        </div>     
+
+                        <label for="text_size" class="form-label">Text Size</label>
+                        <input type="range" value ="8" class="form-range" min="8" max="300" id="text_size">
+                        <h5>Logo Control</h5>
+                        <label for="logo_move_horizontal" class="form-label">Horizontal</label>
+                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_horizontal">
+                        <label for="logo_move_vertical" class="form-label">Vertical</label>
+                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_vertical">                         
+                        <label for="logo_size" class="form-label">Size</label>
+                        <input type="range" value ="50"  class="form-range" min="0" max="100" id="logo_size">                         
+                    </div>
+
+                </div>
+                <div class="col">
+                
+                    <div class="card-body">
+                    <img src="/static/fbpost_head.jpg" class="card-img-top">
+                    <p class="card-text" id="post_text">{{ object.post.post_text }}</p>
+                    </p>
+                    </div>
+                    <div style="position: relative; left: 0; top: 0">
+                        <p id="post_image_text" style="position: absolute;top: 0px;left: 0px;font-family: 'Work Sans';font-size: 8px;"></p>
+                        <img src="/static/emptypost.png"  class="card-img-top" id="show_post_image">
+                        <img src="/static/logo-aeocb.png" id="logo" style="position: absolute;top: 0px;left: 0px;width: 50%;height: 50%">
+                    </div>
+                    <img src="/static/fbpost_bottom.jpg" class="card-img-top">
+                
+                </div>
+            </div>  
+      </div>
+  </div>  
+
+
+  
+  
+  
+
+
+
+
+
+
+
+  
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+<script>
+
+  add_french_image = document.getElementById("add_french_image");
+  add_english_image = document.getElementById("add_english_image");
+  add_kirundi_image = document.getElementById("add_kirundi_image");
+  add_hashtag_image = document.getElementById("add_hashtag_image");
+
+  french = document.getElementById("french");
+  english = document.getElementById("english");
+  kirundi = document.getElementById("kirundi");
+  hashtag = document.getElementById("hashtag"); 
+
+  var final_image_text_French = "";
+  var final_image_text_English = "";
+  var final_image_text_Kirundi = "";
+  var final_image_text_Hashtag = "";
+
+  var final_image_text = "";
+  var final_image_hashtag = "";
+
+  function checkBoxClickedImage(){
+
+    if (add_french_image.checked){
+      final_image_text_French = french.innerHTML;
+    } else {
+      final_image_text_French = "";
+    }
+    
+    if (add_english_image.checked){
+      final_image_text_English = english.innerHTML;
+    } else {
+      final_image_text_English = "";
+    }
+    
+    if (add_kirundi_image.checked){
+      final_image_text_Kirundi = kirundi.innerHTML;
+    } else {
+      final_image_text_Kirundi = "";
+    }
+    
+    if (add_hashtag_image.checked){
+      final_image_text_Hashtag = hashtag.innerHTML;
+    } else {
+      final_image_text_Hashtag = "";
+    }
+    
+    final_image_text = final_image_text_French + "\n" + final_image_text_English + "\n" + final_image_text_Kirundi;
+    final_image_hashtag = final_image_text_Hashtag;
+
+    document.getElementById("post_image_text").innerHTML = final_image_text + "\n" + final_image_hashtag;
+  }
+    var loadFile = function(event) {
+        var show_post_image = document.getElementById('show_post_image');
+        show_post_image.src = URL.createObjectURL(event.target.files[0]);
+
+    };
+    var slider_logo_horizontal = document.getElementById("logo_move_horizontal");
+    var slider_logo_vertical = document.getElementById("logo_move_vertical");
+
+    var slider_verse_horizontal = document.getElementById("text_move_horizontal");
+    var slider_verse_vertical = document.getElementById("text_move_vertical");
+    var logo = document.getElementById("logo");
+    
+    var verse_image_text = document.getElementById("post_image_text");
+
+    function PageLoadFunction(){
+        var show_post_image = document.getElementById("show_post_image");
+        slider_logo_horizontal.max = show_post_image.height;
+        slider_verse_horizontal.max = show_post_image.height;
+        slider_logo_vertical.max = show_post_image.width;
+        slider_verse_vertical.max = show_post_image.width;
+    }
+
+    
+    slider_logo_horizontal.oninput = function() {
+        logo.style.left = this.value + "px";
+    }
+    
+    slider_logo_vertical.oninput = function() {
+        logo.style.top = this.value + "px";
+    }    
+    
+    slider_verse_horizontal.oninput = function() {
+        verse_image_text.style.left = this.value + "px";
+    }
+    
+    slider_verse_vertical.oninput = function() {
+        verse_image_text.style.top = this.value + "px";
+    }      
+
+    var slider_text_size = document.getElementById("text_size");
+
+    text_size.oninput = function (){
+        post_image_text.style.fontSize = this.value + "px";
+    }
+    
+    var logo_size = document.getElementById("logo_size");
+    var logo = document.getElementById("logo");
+
+    logo_size.oninput = function (){
+        logo.style.width = this.value + "%";
+        logo.style.height = this.value + "%";
+    }
+
+    function workSansClick(){
+        post_image_text.style.fontFamily  = "Work Sans";
+    }
+    function spaceGroteskClick(){
+        post_image_text.style.fontFamily  = "Space Grotesk";
+    }
+    function firaSansClick(){
+        post_image_text.style.fontFamily  = "Fira Sans";
+    }      
+  
+  </script>
+{% endblock %}

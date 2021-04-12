@@ -24,27 +24,6 @@ class themeUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
-class verseListView(generic.ListView):
-    model = models.verse
-    form_class = forms.verseForm
-
-
-class verseCreateView(generic.CreateView):
-    model = models.verse
-    form_class = forms.verseForm
-
-
-class verseDetailView(generic.DetailView):
-    model = models.verse
-    form_class = forms.verseForm
-
-
-class verseUpdateView(generic.UpdateView):
-    model = models.verse
-    form_class = forms.verseForm
-    pk_url_kwarg = "pk"
-
-
 class postListView(generic.ListView):
     model = models.post
     form_class = forms.postForm
@@ -66,22 +45,22 @@ class postUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
-class qouteListView(generic.ListView):
-    model = models.qoute
-    form_class = forms.qouteForm
+class post_imageListView(generic.ListView):
+    model = models.post_image
+    form_class = forms.post_imageForm
 
 
-class qouteCreateView(generic.CreateView):
-    model = models.qoute
-    form_class = forms.qouteForm
+class post_imageCreateView(generic.CreateView):
+    model = models.post_image
+    form_class = forms.post_imageForm
 
 
-class qouteDetailView(generic.DetailView):
-    model = models.qoute
-    form_class = forms.qouteForm
+class post_imageDetailView(generic.DetailView):
+    model = models.post_image
+    form_class = forms.post_imageForm
 
 
-class qouteUpdateView(generic.UpdateView):
-    model = models.qoute
-    form_class = forms.qouteForm
+class post_imageUpdateView(generic.UpdateView):
+    model = models.post_image
+    form_class = forms.post_imageForm
     pk_url_kwarg = "pk"

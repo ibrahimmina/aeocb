@@ -1,7 +1,10 @@
 from rest_framework import viewsets, permissions
+from datetime import datetime
 
 from . import serializers
 from . import models
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
 
 class themeViewSet(viewsets.ModelViewSet):
@@ -11,13 +14,21 @@ class themeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.themeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class unAuthThemeViewSet(viewsets.ModelViewSet):
+    """ViewSet for the theme class"""
+    
+    queryset = models.theme.objects.all()
+    serializer_class = serializers.themeSerializer
 
-class verseViewSet(viewsets.ModelViewSet):
-    """ViewSet for the verse class"""
+    def get_queryset(self):
+        date_time_obj_date = datetime.strptime(self.request.query_params.get('datetime'), '%Y-%m-%dT%H:%M')
+        print (date_time_obj_date)
+        queryset = models.theme.objects.filter(theme_from_date__lte=date_time_obj_date, theme_to_date__gte=date_time_obj_date)
+        serializer_class = serializers.themeSerializer
 
-    queryset = models.verse.objects.all()
-    serializer_class = serializers.verseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+        return queryset
+
+
 
 
 class postViewSet(viewsets.ModelViewSet):
@@ -28,9 +39,9 @@ class postViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class qouteViewSet(viewsets.ModelViewSet):
-    """ViewSet for the qoute class"""
+class post_imageViewSet(viewsets.ModelViewSet):
+    """ViewSet for the post_image class"""
 
-    queryset = models.qoute.objects.all()
-    serializer_class = serializers.qouteSerializer
+    queryset = models.post_image.objects.all()
+    serializer_class = serializers.post_imageSerializer
     permission_classes = [permissions.IsAuthenticated]

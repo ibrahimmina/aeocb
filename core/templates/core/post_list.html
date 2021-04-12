@@ -8,7 +8,7 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Post Date</th>
+        <th>Post Date Time</th>
         <th>Post Type</th>
       </tr>
     </thead>
@@ -16,7 +16,7 @@
 {% for object in object_list %}
       <tr>
         <td><div><a href="{{object.get_absolute_url}}">{{object}}</a></div></td>
-        <td>{{object.post_date}}</td>
+        <td>{{object.datetime}}</td>
         <td>{{object.post_type}}</td>
       </tr>
 {% endfor %}

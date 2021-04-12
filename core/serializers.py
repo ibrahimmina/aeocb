@@ -8,26 +8,12 @@ class themeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.theme
         fields = [
-            "created",
             "last_updated",
-            "theme",
-            "theme_month",
+            "theme_from_date",
             "theme_hashtag",
-        ]
-
-class verseSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.verse
-        fields = [
-            "verse_hashtag",
             "created",
-            "verse_date",
-            "verse_kirundi",
-            "verse_english",
-            "verse_image",
-            "last_updated",
-            "verse_french",
+            "theme_to_date",
+            "theme",
         ]
 
 class postSerializer(serializers.ModelSerializer):
@@ -35,22 +21,23 @@ class postSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.post
         fields = [
-            "post_date",
-            "post_image",
-            "created",
-            "post_text",
+            "datetime",
+            "english",
+            "hashtag",
             "post_type",
+            "post_text",
+            "french",
             "last_updated",
+            "kirundi",
+            "created",
         ]
 
-class qouteSerializer(serializers.ModelSerializer):
+class post_imageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.qoute
+        model = models.post_image
         fields = [
-            "created",
-            "qoute_date",
             "last_updated",
-            "qoute_image",
-            "qoute_hashtag",
+            "post_image",
+            "created",
         ]

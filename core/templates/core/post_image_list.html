@@ -1,28 +1,30 @@
 
 {% extends "base.html" %}
 {% block content %}
-<h2>Verses</h2>
+{% for object in object_list %}
+
+<h2>Posts Images</h2>
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
         <th>#</th>
-        <th>Verse Date</th>
-        <th>Verse French</th>
+        <th>Post Created At</th>
+        <th>Post Date & Time</th>
+        <th>Post has Image</th>
       </tr>
     </thead>
     <tbody>
-      
 {% for object in object_list %}
       <tr>
         <td><div><a href="{{object.get_absolute_url}}">{{object}}</a></div></td>
-        <td>{{object.verse_date}}</td>
-        <td>{{object.verse_french}}</td>
+        <td>{{object.created}}</td>
+        <td>{{object.post.datetime}}</td>
+        <td>{{object.post_image}}</td>
       </tr>
-
 {% endfor %}
 </tbody>
 </table>
 </div>
-<div><a class="btn btn-primary" href="{% url 'core_verse_create' %}">Create a new verse</a></div>
+{% endfor %}
 {% endblock %}

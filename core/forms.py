@@ -6,22 +6,10 @@ class themeForm(forms.ModelForm):
     class Meta:
         model = models.theme
         fields = [
-            "theme",
-            "theme_month",
+            "theme_from_date",
             "theme_hashtag",
-        ]
-
-
-class verseForm(forms.ModelForm):
-    class Meta:
-        model = models.verse
-        fields = [
-            "verse_hashtag",
-            "verse_date",
-            "verse_kirundi",
-            "verse_english",
-            "verse_image",
-            "verse_french",
+            "theme_to_date",
+            "theme",
         ]
 
 
@@ -29,18 +17,20 @@ class postForm(forms.ModelForm):
     class Meta:
         model = models.post
         fields = [
-            "post_date",
-            "post_image",
-            "post_text",
+            "datetime",
+            "english",
+            "hashtag",
             "post_type",
+            "post_text",
+            "french",
+            "kirundi",
         ]
 
 
-class qouteForm(forms.ModelForm):
+class post_imageForm(forms.ModelForm):
     class Meta:
-        model = models.qoute
+        model = models.post_image
         fields = [
-            "qoute_date",
-            "qoute_image",
-            "qoute_hashtag",
+            "post_image",
+            "post",
         ]

@@ -2,18 +2,21 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
-<h2>Themes Details</h2>
-<div class="table-responsive">
-  <table class="table table-striped table-sm">
-    <tr><th scope="row">Theme</th><td>{{ object.theme }}</td></tr>
-    <tr><th scope="row">Theme Month</th><td>{{ object.theme_month | date:'M - Y' }}</td></tr>
-    <tr><th scope="row">Theme Hashtag</th><td>{{ object.theme_hashtag }}</td></tr>
-    <tr><th scope="row">Last Updated</th><td>{{ object.last_updated }}</td></tr>
-  </table>
-</div>
     
-
+<p>
+    <a class="btn btn-light" href="{% url 'core_theme_list' %}">
+    theme Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>theme_from_date</td><td>{{ object.theme_from_date }}</td></tr>
+    <tr><td>theme_hashtag</td><td>{{ object.theme_hashtag }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>theme_to_date</td><td>{{ object.theme_to_date }}</td></tr>
+    <tr><td>theme</td><td>{{ object.theme }}</td></tr>
+</table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
 {% endblock %}
