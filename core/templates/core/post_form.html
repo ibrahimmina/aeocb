@@ -133,7 +133,7 @@
       theme.innerHTML = myObj[0]['theme'];
       theme_hasthag.innerHTML = myObj[0]['theme_hashtag'];
     };
-    xhttp.open("GET", "http://127.0.0.1:8000/core/api/v1/themes/?datetime=" + datetime.value, true);
+    xhttp.open("GET", "https://aeocb.herokuapp.com/core/api/v1/themes/?datetime=" + datetime.value, true);
     xhttp.send();
   }
 
