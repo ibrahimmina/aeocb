@@ -25,4 +25,5 @@ urlpatterns = (
     path("core/post_image/create/", views.post_imageCreateView.as_view(), name="core_post_image_create"),
     path("core/post_image/detail/<int:pk>/", views.post_imageDetailView.as_view(), name="core_post_image_detail"),
     path("core/post_image/update/<int:pk>/", views.post_imageUpdateView.as_view(), name="core_post_image_update"),
+    path("core/post_image/updateNew/<int:pk>/", views.post_imageUpdate, name="core_post_image_updateNew"),
 )

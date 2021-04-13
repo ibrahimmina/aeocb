@@ -6,120 +6,126 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{form.errors}}
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" for="datetime">Post Date Time: </label>
+  <div class="row">
+    <div class="col">
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-sm-2" for="datetime">Post Date Time</label>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control col-sm-10" id="datetime" type="datetime-local" name="datetime" value="{{ object.datetime }}" onchange="getThemes()">
+        </div>
+      </div>  
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-sm-2" >Post Theme</label>
+        </div>
+        <div class="col-md-11">
+          <div class="alert alert-dark" role="alert" id="theme">Choose Date Time to Populate theme</div>
+        </div>
+      </div>
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-sm-2" >Post Theme Hashtag</label>
+        </div>
+        <div class="col-md-9">
+          <div class="alert alert-dark" role="alert" id="theme_hasthag">Choose Date Time to Populate theme hashtag</div>  
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_theme_hashtag_post" onclick="checkBoxClicked();">
+        </div>
+        <div class="col-md-1">
+          <label class="form-check-label" for="add_french_post">Add</label>
+        </div>  
+      </div>
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-sm-2" for="post_type">Post Type</label>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}">
+        </div>
+      </div>  
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-form-label" for="french">French</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="french" type="text" name="french" value="{{ object.french }}"></textarea>
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_french_post" onclick="checkBoxClicked();">
+        </div>
+        <div class="col-md-1 ml-auto">
+          <label class="form-check-label" for="add_french_post">Add</label>
+        </div>  
+      </div>    
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-form-label" for="english">English</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="english" type="text" name="english" value="{{ object.english }}"></textarea>
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_english_post" onclick="checkBoxClicked();">
+        </div>
+        <div class="col-md-1 ml-auto">
+          <label class="form-check-label" for="add_english_post">Add</label>
+        </div>  
+      </div>  
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-form-label" for="kirundi">Kirundi</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="kirundi" type="text" name="kirundi" value="{{ object.kirundi }}"></textarea>
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_kirundi_post" onclick="checkBoxClicked();">
+        </div>
+        <div class="col-md-1 ml-auto">
+          <label class="form-check-label" for="add_kirundi_post">Add</label>
+        </div>  
+      </div>  
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-form-label" for="hashtag">Hashtag</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="hashtag" type="text" name="hashtag" value="{{ object.hashtag }}"></textarea>
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_hashtag_post" onclick="checkBoxClicked();">
+        </div>
+        <div class="col-md-1 ml-auto">
+          <label class="form-check-label" for="add_hashtag_post">Add</label>
+        </div>  
+      </div>    
     </div>
-    <div class="p-2 d-flex col-md-11 align-self-center">
-      <input class="form-control col-sm-10" id="datetime" type="datetime-local" name="datetime" value="{{ object.datetime }}" onchange="getThemes()">
-    </div>
-  </div>  
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" >Post Theme: </label>
-    </div>
-    <div class="p-2 d-flex col-md-11 align-self-center">
-      <div class="alert alert-dark" role="alert" id="theme">Choose Date Time to Populate theme</div>
+    <div class="col">
+      <div class="card-body">
+          <img src="/media/static/fbpost_head.jpg" class="card-img-top">
+          <p class="card-text" id="post_text_card"></p>
+          <img src="/media/static/emptypost.png"  class="card-img-top" id="show_post_image">
+          <img src="/media/static/fbpost_bottom.jpg" class="card-img-top">
+      </div>
     </div>
   </div>
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" >Post Theme Hashtag: </label>
+  <div class="row mb-3">
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-sm-2" for="post_text">Final Post Text</label>
+      </div>
+      <div class="col-md-11">
+        <textarea rows="5" class="form-control col-sm-10" id="post_text" type="text" name="post_text" value="{{ object.post_text }}"></textarea>
+      </div>
     </div>
-    <div class="p-2 d-flex col-md-9 align-self-center">
-      <div class="alert alert-dark" role="alert" id="theme_hasthag">Choose Date Time to Populate theme hashtag</div>  
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <input type="checkbox" id="add_theme_hashtag_post" onclick="checkBoxClicked();">
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-      <label class="form-check-label" for="add_french_post">Add to Post</label>
-    </div>  
   </div>
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" for="post_type">Post Type: </label>
-    </div>
-    <div class="p-2 d-flex col-md-11 align-self-center">
-      <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}">
-    </div>
-  </div>  
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-form-label" for="french">French: </label>
-    </div>
-    <div class="p-2 d-flex col-md-9 align-self-center">
-      <textarea class="form-control" id="french" type="text" name="french" value="{{ object.french }}"></textarea>
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <input type="checkbox" id="add_french_post" onclick="checkBoxClicked();">
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-      <label class="form-check-label" for="add_french_post">Add to Post</label>
-    </div>  
-  </div>    
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-form-label" for="english">English: </label>
-    </div>
-    <div class="p-2 d-flex col-md-9 align-self-center">
-      <textarea class="form-control" id="english" type="text" name="english" value="{{ object.english }}"></textarea>
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <input type="checkbox" id="add_english_post" onclick="checkBoxClicked();">
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-      <label class="form-check-label" for="add_english_post">Add to Post</label>
-    </div>  
-  </div>  
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-form-label" for="kirundi">Kirundi: </label>
-    </div>
-    <div class="p-2 d-flex col-md-9 align-self-center">
-      <textarea class="form-control" id="kirundi" type="text" name="kirundi" value="{{ object.kirundi }}"></textarea>
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <input type="checkbox" id="add_kirundi_post" onclick="checkBoxClicked();">
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-      <label class="form-check-label" for="add_kirundi_post">Add to Post</label>
-    </div>  
-  </div>  
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-form-label" for="hashtag">Hashtag: </label>
-    </div>
-    <div class="p-2 d-flex col-md-9 align-self-center">
-      <textarea class="form-control" id="hashtag" type="text" name="hashtag" value="{{ object.hashtag }}"></textarea>
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <input type="checkbox" id="add_hashtag_post" onclick="checkBoxClicked();">
-    </div>
-    <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-      <label class="form-check-label" for="add_hashtag_post">Add to Post</label>
-    </div>  
-  </div>  
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" for="post_text">Post Text: </label>
-    </div>
-    <div class="p-2 d-flex col-md-11 align-self-center">
-      <textarea rows="5" class="form-control col-sm-10" id="post_text" type="text" name="post_text" value="{{ object.post_text }}"></textarea>
-    </div>
-  </div>  
-  <div class="card-body">
-      <img src="/media/static/fbpost_head.jpg" class="card-img-top">
-      <p class="card-text" id="post_text_card"></p>
-      <img src="/media/static/emptypost.png"  class="card-img-top" id="show_post_image">
-      <img src="/media/static/fbpost_bottom.jpg" class="card-img-top">
+  <div class="row mb-3">
+    <input type="submit" value="Save" class="btn btn-primary">
   </div>
-
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
-  <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
-  </div>
-  <input type="submit" value="Save" class="btn btn-primary">
+ 
 </form>
 <script>
   var datetime = document.getElementById("datetime");

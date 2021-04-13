@@ -2,163 +2,239 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-sm-2 col-form-label" for="datetime">Post Date Time: </label>
-  </div>
-  <div class="p-2 d-flex col-md-11 align-self-center">
-    <input class="form-control col-sm-10" id="datetime" type="text" name="datetime" value="{{ object.post.datetime }}"disabled>
-  </div>
-</div>  
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-sm-2 col-form-label" for="post_type">Post Type: </label>
-  </div>
-  <div class="p-2 d-flex col-md-11 align-self-center">
-    <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post.post_type }}" disabled>
-  </div>
-</div>  
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-form-label" for="french">French: </label>
-  </div>
-  <div class="p-2 d-flex col-md-9 align-self-center">
-    <textarea class="form-control" id="french" type="text" name="french" disabled>{{ object.post.french }}</textarea>
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <input type="checkbox" id="add_french_image" onclick="checkBoxClickedImage();">
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-    <label class="form-check-label" for="add_french_image">Add to Image</label>
-  </div>  
-</div>    
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-form-label" for="english">English: </label>
-  </div>
-  <div class="p-2 d-flex col-md-9 align-self-center">
-    <textarea class="form-control" id="english" type="text" name="english" disabled>{{ object.post.english }}</textarea>
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <input type="checkbox" id="add_english_image" onclick="checkBoxClickedImage();">
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-    <label class="form-check-label" for="add_english_image">Add to Image</label>
-  </div>  
-</div>  
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-form-label" for="kirundi">Kirundi: </label>
-  </div>
-  <div class="p-2 d-flex col-md-9 align-self-center">
-    <textarea class="form-control" id="kirundi" type="text" name="kirundi" disabled>{{ object.post.kirundi }}</textarea>
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <input type="checkbox" id="add_kirundi_image" onclick="checkBoxClickedImage();">
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-    <label class="form-check-label" for="add_kirundi_image">Add to Image</label>
-  </div>  
-</div>  
-<div class="d-flex flex-row align-items-stretch">
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <label class="col-form-label" for="hashtag">Hashtag: </label>
-  </div>
-  <div class="p-2 d-flex col-md-9 align-self-center">
-    <textarea class="form-control" id="hashtag" type="text" name="hashtag" disabled>{{ object.post.hashtag }}</textarea>
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center">
-    <input type="checkbox" id="add_hashtag_image" onclick="checkBoxClickedImage();">
-  </div>
-  <div class="p-2 d-flex col-md-1 align-self-center ml-auto">
-    <label class="form-check-label" for="add_hashtag_image">Add to Image</label>
-  </div>  
-</div>   
-  
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{form.errors}}
-  <div class="d-flex flex-row align-items-stretch">
-    <div class="p-2 d-flex col-md-1 align-self-center">
-      <label class="col-sm-2 col-form-label" for="post_image">post_image: </label>
-    </div>
-    <div class="p-2 d-flex col-md-11 align-self-center">
-      <input class="form-control col-sm-10" id="post_image" type="file" name="post_image" value="{{ object.post_image }}" onchange="loadFile(event)">
-    </div>
-  </div> 
 
-  <div class="card">
-      <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h5>Text Control</h5>
-                        <label for="text_move_horizontal" class="form-label">Horizontal</label>
-                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_horizontal">
-                        <label for="text_move_vertical" class="form-label">Vertical</label>
-                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_vertical"> 
-
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="image_text_font" id="Work-Sans" checked onclick="workSansClick()">
-                        <label class="form-check-label" style="font-family: 'Work Sans';font-size: 30px;" for="Work-Sans">Work Sans</label>
-                        </div>
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="image_text_font" id="Space-Grotesk" onclick="spaceGroteskClick()">
-                        <label class="form-check-label" style="font-family: 'Space Grotesk';font-size: 30px;" for="Space-Grotesk">Space Grotesk</label>
-                        </div>
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="image_text_font" id="Fira-Sans" onclick="firaSansClick()">
-                        <label class="form-check-label" style="font-family: 'Fira Sans';font-size: 30px;" for="Fira-Sans">Fira Sans</label>
-                        </div>     
-
-                        <label for="text_size" class="form-label">Text Size</label>
-                        <input type="range" value ="8" class="form-range" min="8" max="300" id="text_size">
-                        <h5>Logo Control</h5>
-                        <label for="logo_move_horizontal" class="form-label">Horizontal</label>
-                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_horizontal">
-                        <label for="logo_move_vertical" class="form-label">Vertical</label>
-                        <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_vertical">                         
-                        <label for="logo_size" class="form-label">Size</label>
-                        <input type="range" value ="50"  class="form-range" min="0" max="100" id="logo_size">                         
-                    </div>
-
-                </div>
-                <div class="col">
-                
-                    <div class="card-body">
-                    <img src="/media/static/fbpost_head.jpg" class="card-img-top">
-                    <p class="card-text" id="post_text">{{ object.post.post_text }}</p>
-                    </p>
-                    </div>
-                    <div style="position: relative; left: 0; top: 0">
-                        <p id="post_image_text" style="position: absolute;top: 0px;left: 0px;font-family: 'Work Sans';font-size: 8px;"></p>
-                        <img src="/media/static/emptypost.png"  class="card-img-top" id="show_post_image">
-                        <img src="/media/static/logo-aeocb.png" id="logo" style="position: absolute;top: 0px;left: 0px;width: 50%;height: 50%">
-                    </div>
-                    <img src="/media/static/fbpost_bottom.jpg" class="card-img-top">
-                
-                </div>
-            </div>  
+<div class="row">
+  <div class="col">
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-sm-2 col-form-label" for="datetime">Post Date</label>
       </div>
-  </div>  
+      <div class="col-md-11">
+        <input class="form-control col-sm-10" id="datetime" type="text" name="datetime" value="{{ object.post.datetime }}"disabled>
+      </div>
+    </div> 
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-form-label" for="french">French</label>
+      </div>
+      <div class="col-md-9">
+        <textarea class="form-control" id="french" type="text" name="french" disabled>{{ object.post.french }}</textarea>
+      </div>
+      <div class="col-md-1">
+        <input type="checkbox" id="add_french_image" onclick="checkBoxClickedImage();">
+      </div>
+      <div class="col-md-1">
+        <label class="form-check-label" for="add_french_image">Add</label>
+      </div>  
+    </div>
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-form-label" for="kirundi">Kirundi</label>
+      </div>
+      <div class="col-md-9">
+        <textarea class="form-control" id="kirundi" type="text" name="kirundi" disabled>{{ object.post.kirundi }}</textarea>
+      </div>
+      <div class="col-md-1">
+        <input type="checkbox" id="add_kirundi_image" onclick="checkBoxClickedImage();">
+      </div>
+      <div class="col-md-1">
+        <label class="form-check-label" for="add_kirundi_image">Add</label>
+      </div>  
+    </div>    
+  </div>        
+  <div class="col">
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-sm-2 col-form-label" for="post_type">Post Type</label>
+      </div>
+      <div class="col-md-11">
+        <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post.post_type }}" disabled>
+      </div>
+    </div>      
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-form-label" for="english">English</label>
+      </div>
+      <div class="col-md-9">
+        <textarea class="form-control" id="english" type="text" name="english" disabled>{{ object.post.english }}</textarea>
+      </div>
+      <div class="col-md-1">
+        <input type="checkbox" id="add_english_image" onclick="checkBoxClickedImage();">
+      </div>
+      <div class="col-md-1">
+        <label class="form-check-label" for="add_english_image">Add</label>
+      </div>  
+      </div>    
+      <div class="row align-items-center mb-3">
+        <div class="col-md-1">
+          <label class="col-form-label" for="hashtag">Hashtag</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="hashtag" type="text" name="hashtag" disabled>{{ object.post.hashtag }}</textarea>
+        </div>
+        <div class="col-md-1">
+          <input type="checkbox" id="add_hashtag_image" onclick="checkBoxClickedImage();">
+        </div>
+        <div class="col-md-1">
+          <label class="form-check-label" for="add_hashtag_image">Add</label>
+        </div>  
+      </div>
+  </div>
+  <form  method="post" action="/core/core/post_image/updateNew/{{object.id}}/" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.errors}}
+    <div class="row align-items-center mb-3">
+      <div class="col-md-1">
+        <label class="col-sm-2 col-form-label" for="post_image">Post Image</label>
+      </div>
+      <div class="col-md-11">
+        <input class="form-control col-sm-10" id="post_image" type="file" name="post_image" value="{{ object.post_image }}" onchange="loadFile(event)">
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col">
+        <h5>Text Control</h5>
+        <div class = "row">
+          <div class = "col">
+            <label for="text_move_horizontal" class="form-label">Horizontal</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_horizontal"> 
+              </div>
+              <div class="col-2">
+                <input type="number" value="0" class="form-control" id="text_move_horizontal_input" name="text_move_horizontal_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col">
+            <label for="text_move_vertical" class="form-label">Vertical</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="0" class="form-range" min="0" max="1080" id="text_move_vertical"> 
+              </div>
+              <div class="col-2">
+                <input type="number" value="0" class="form-control" id="text_move_vertical_input" name="text_move_vertical_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class = "row">
+          <div class = "col">
+            <label for="text_font" class="form-label">Text Font</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                  <select class="form-select" onchange="selectFont()" id="text_font" aria-label="Default select example">
+                    <option value="Work Sans" selected>Work Sans</option>
+                    <option value="Space Grotesk" >Space Grotesk</option>
+                    <option value="Fira Sans">Fira Sans</option>
+                  </select>              
+              </div>
+              <div class="col-2">
+                <input type="text" value="WS" class="form-control" id="text_font_input" name="text_font_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+     
+
+        <div class = "row">
+          <div class = "col">
+            <label for="text_size" class="form-label">Text Size</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="0" class="form-range" min="8" max="100" id="text_size" > 
+              </div>
+              <div class="col-2">
+                <input type="number" value="8" class="form-control" id="text_size_input" name="text_size_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h5>Logo Control</h5>
+
+        <div class = "row">
+          <div class = "col">
+            <label for="logo_move_horizontal" class="form-label">Horizontal</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_horizontal"> 
+              </div>
+              <div class="col-2">
+                <input type="number" value="0" class="form-control" id="logo_move_horizontal_input" name="logo_move_horizontal_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col">
+            <label for="logo_move_vertical" class="form-label">vertical</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="0" class="form-range" min="0" max="1080" id="logo_move_vertical"> 
+              </div>
+              <div class="col-2">
+                <input type="number" value="0" class="form-control" id="logo_move_vertical_input" name="logo_move_vertical_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-
-  
-  <input type="submit" value="Save" class="btn btn-primary">
+        <div class = "row">
+          <div class = "col">
+            <label for="logo_size" class="form-label">Size</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="range" value ="50" class="form-range" min="0" max="100" id="logo_size"> 
+              </div>
+              <div class="col-2">
+                <input type="number" value="50" class="form-control" id="logo_size_input" name="logo_size_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <img src="/media/static/fbpost_head.jpg" class="card-img-top">
+                <p class="card-text" id="post_text">{{ object.post.post_text }}</p>
+            
+                <div style="position: relative; left: 0; top: 0">
+                    <p id="post_image_text" style="position: absolute;top: 0px;left: 0px;font-family: 'Work Sans';font-size: 8px;"></p>
+                    <img src="/media/static/emptypost.png"  class="card-img-top" id="show_post_image">
+                    <img src="/media/static/logo-aeocb.png" id="logo" style="position: absolute;top: 0px;left: 0px;width: 50%;height: 50%">
+                </div>
+                <img src="/media/static/fbpost_bottom.jpg" class="card-img-top">
+            </div>
+        </div>  
+      </div>
+    </div>
+  <input type="submit" value="Save" class="btn btn-primary m-3">
 </form>
 <script>
+  var slider_logo_horizontal = document.getElementById("logo_move_horizontal");
+  var slider_logo_vertical = document.getElementById("logo_move_vertical");
 
+  var slider_verse_horizontal = document.getElementById("text_move_horizontal");
+  var slider_verse_vertical = document.getElementById("text_move_vertical");
+  var logo = document.getElementById("logo");
+    
+  var verse_image_text = document.getElementById("post_image_text");
+  var text_font = document.getElementById("text_font");
+  var text_move_horizontal_input = document.getElementById("text_move_horizontal_input");
+  var text_move_vertical_input = document.getElementById("text_move_vertical_input");
+  var text_font_input = document.getElementById("text_font_input");
+  var text_size_input = document.getElementById("text_size_input");
+  var logo_move_horizontal_input = document.getElementById("logo_move_horizontal_input");
+  var logo_move_vertical_input = document.getElementById("logo_move_vertical_input");
+  var logo_size_input = document.getElementById("logo_size_input");
+  
   add_french_image = document.getElementById("add_french_image");
   add_english_image = document.getElementById("add_english_image");
   add_kirundi_image = document.getElementById("add_kirundi_image");
@@ -211,16 +287,13 @@
     var loadFile = function(event) {
         var show_post_image = document.getElementById('show_post_image');
         show_post_image.src = URL.createObjectURL(event.target.files[0]);
+        slider_logo_horizontal.max = show_post_image.height;
+        slider_verse_horizontal.max = show_post_image.height;
+        slider_logo_vertical.max = show_post_image.width;
+        slider_verse_vertical.max = show_post_image.width;        
 
     };
-    var slider_logo_horizontal = document.getElementById("logo_move_horizontal");
-    var slider_logo_vertical = document.getElementById("logo_move_vertical");
 
-    var slider_verse_horizontal = document.getElementById("text_move_horizontal");
-    var slider_verse_vertical = document.getElementById("text_move_vertical");
-    var logo = document.getElementById("logo");
-    
-    var verse_image_text = document.getElementById("post_image_text");
 
     function PageLoadFunction(){
         var show_post_image = document.getElementById("show_post_image");
@@ -233,24 +306,29 @@
     
     slider_logo_horizontal.oninput = function() {
         logo.style.left = this.value + "px";
+        logo_move_horizontal_input.value = this.value;
     }
     
     slider_logo_vertical.oninput = function() {
         logo.style.top = this.value + "px";
+        logo_move_vertical_input.value = this.value;
     }    
     
     slider_verse_horizontal.oninput = function() {
         verse_image_text.style.left = this.value + "px";
+        text_move_horizontal_input.value = this.value;
     }
     
     slider_verse_vertical.oninput = function() {
         verse_image_text.style.top = this.value + "px";
+        text_move_vertical_input.value = this.value;
     }      
 
     var slider_text_size = document.getElementById("text_size");
 
     text_size.oninput = function (){
         post_image_text.style.fontSize = this.value + "px";
+        text_size_input.value = this.value;
     }
     
     var logo_size = document.getElementById("logo_size");
@@ -259,16 +337,24 @@
     logo_size.oninput = function (){
         logo.style.width = this.value + "%";
         logo.style.height = this.value + "%";
+        logo_size_input.value = this.value;
     }
 
+    function selectFont(){
+      post_image_text.style.fontFamily  = text_font.value;
+      text_font_input.value = text_font.value;
+    }
     function workSansClick(){
         post_image_text.style.fontFamily  = "Work Sans";
+        text_font_input.value = "WS";
     }
     function spaceGroteskClick(){
         post_image_text.style.fontFamily  = "Space Grotesk";
+        text_font_input.value = "SG";
     }
     function firaSansClick(){
         post_image_text.style.fontFamily  = "Fira Sans";
+        text_font_input.value = "FS";
     }      
   
   </script>

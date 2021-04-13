@@ -1,7 +1,7 @@
 from django.views import generic
 from . import models
 from . import forms
-
+from django.http import HttpResponse
 
 class themeListView(generic.ListView):
     model = models.theme
@@ -64,3 +64,9 @@ class post_imageUpdateView(generic.UpdateView):
     model = models.post_image
     form_class = forms.post_imageForm
     pk_url_kwarg = "pk"
+
+
+def post_imageUpdate(request, pk):
+    print (request.__dict__)
+    return HttpResponse("Created :)")
+        
