@@ -1,7 +1,15 @@
 from django.views import generic
 from . import models
 from . import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from PIL import Image, ImageDraw, ImageFont,ImageFilter
+import os
+from django.conf import settings
+from django.core.files.base import ContentFile
+from io import BytesIO
+from django.core.files import File
+from django.urls import reverse
+
 
 class themeListView(generic.ListView):
     model = models.theme
@@ -67,6 +75,56 @@ class post_imageUpdateView(generic.UpdateView):
 
 
 def post_imageUpdate(request, pk):
-    print (request.__dict__)
-    return HttpResponse("Created :)")
-        
+    print (pk)
+    
+    #load Image to background
+    post_image=request.FILES['post_image']
+    background = Image.open(post_image)
+    background_width, background_height = background.size
+    
+    #load logo to logo
+    logo = Image.open(settings.MEDIA_ROOT + '/static/logo-aeocb.png')
+    logo_width, logo_height = logo.size
+
+    #get ratios
+    logo_width_ratio = int(request._post['current_logo_width']) / logo_width
+    logo_height_ratio = int(request._post['current_logo_height']) / logo_height
+    image_width_ratio = int(request._post['current_image_width']) / background_width
+    image_height_ratio = int(request._post['current_image_height']) / background_height
+
+    #resize logo
+    new_logo_width = int(logo_width * (int(request._post['logo_size_input'])/100) * logo_width_ratio)
+    new_logo_height = int(logo_height * (int(request._post['logo_size_input'])/100) * logo_height_ratio)
+    new_logo_size = (new_logo_width,new_logo_height)
+    print (request._post['logo_size_input'])
+    print(logo.size)
+    print (new_logo_size)
+    logo = logo.resize(new_logo_size)
+    
+    #Add Logo to Background
+    background.paste(logo,(int(int(request._post['logo_move_horizontal_input']) * image_width_ratio),int(int(request._post['logo_move_vertical_input'])* image_height_ratio)),logo)
+
+    #Add Text to Background
+    font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/WorkSans-VariableFont_wght.ttf", int(request._post['text_size_input']), encoding="unic")
+    if (request._post['text_font_input'] == "Work Sans"):
+        font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/WorkSans-VariableFont_wght.ttf", int(request._post['text_size_input']), encoding="unic")
+    elif (request._post['text_font_input'] == "Space Grotesk"):
+        font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/SpaceGrotesk-VariableFont_wght.ttf", int(request._post['text_size_input']), encoding="unic")
+    elif (request._post['text_font_input'] == "Fira Sans"):
+        font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/FiraSans-Regular.ttf", int(request._post['text_size_input']), encoding="unic")
+    message = request._post['post_text_final']
+    draw = ImageDraw.Draw(background)
+    (x, y) = (int(int(request._post['text_move_horizontal_input']) * image_width_ratio),int(int(request._post['text_move_vertical_input'])*image_height_ratio))
+    color = 'rgb(255, 255, 255)'
+    draw.text((x, y), message, fill=color, font=font)
+
+    #Save Background
+    #thumb_io = BytesIO()
+    #background.save(settings.MEDIA_ROOT + "/upload/post_images/test.png" , quality=95)
+    blob = BytesIO()
+    background.save(blob, format='JPEG', quality=100)
+    post_image_object = models.post_image.objects.get(id=pk)
+    post_image_object.post_image.save(str(pk) + '.jpg', File(blob), save=False)
+    post_image_object.save()
+
+    return HttpResponseRedirect(reverse("core_post_image_detail", args=(pk,)))

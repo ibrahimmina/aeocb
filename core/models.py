@@ -77,11 +77,17 @@ class post_image(models.Model):
         return reverse("core_post_image_update", args=(self.pk,))
 
     @property
+    def get_photo_url(self):
+        if self.post_image and hasattr(self.post_image, 'url'):
+            return self.post_image.url
+        else:
+            return "/media/static/emptypost.png"
+    @property
     def get_photo_status(self):
         if self.post_image and hasattr(self.post_image, 'url'):
             return "Yes"
         else:
-            return "No"
+            return "No"            
 
 @receiver(signals.post_save, sender=post)
 def on_create_or_updated_obj(sender,created, instance, **kwargs):

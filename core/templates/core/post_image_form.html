@@ -83,6 +83,12 @@
   <form  method="post" action="/core/core/post_image/updateNew/{{object.id}}/" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.errors}}
+    <input type="hidden" class="form-control" id="current_logo_width" name="current_logo_width" >
+    <input type="hidden" class="form-control" id="current_logo_height" name="current_logo_height">
+    <input type="hidden" class="form-control" id="current_image_width" name="current_image_width">
+    <input type="hidden" class="form-control" id="current_image_height" name="current_image_height">
+    <input type="hidden" value="{{ object.post.post_text }}" class="form-control" id="post_text_final" name="post_text_final">
+
     <div class="row align-items-center mb-3">
       <div class="col-md-1">
         <label class="col-sm-2 col-form-label" for="post_image">Post Image</label>
@@ -234,6 +240,11 @@
   var logo_move_horizontal_input = document.getElementById("logo_move_horizontal_input");
   var logo_move_vertical_input = document.getElementById("logo_move_vertical_input");
   var logo_size_input = document.getElementById("logo_size_input");
+
+  var current_logo_width = document.getElementById("current_logo_width");
+  var current_logo_height = document.getElementById("current_logo_height");
+  var current_image_width = document.getElementById("current_image_width");
+  var current_image_height = document.getElementById("current_image_height");
   
   add_french_image = document.getElementById("add_french_image");
   add_english_image = document.getElementById("add_english_image");
@@ -291,7 +302,10 @@
         slider_verse_horizontal.max = show_post_image.height;
         slider_logo_vertical.max = show_post_image.width;
         slider_verse_vertical.max = show_post_image.width;        
-
+        current_logo_width.value = logo.width;
+        current_logo_height.value = logo.height;
+        current_image_width.value = show_post_image.width;
+        current_image_height.value = show_post_image.height;
     };
 
 
@@ -301,8 +315,12 @@
         slider_verse_horizontal.max = show_post_image.height;
         slider_logo_vertical.max = show_post_image.width;
         slider_verse_vertical.max = show_post_image.width;
+        current_logo_width.value = logo.width;
+        current_logo_height.value = logo.height;
+        current_image_width.value = show_post_image.width;
+        current_image_height.value = show_post_image.height;
     }
-
+    PageLoadFunction()
     
     slider_logo_horizontal.oninput = function() {
         logo.style.left = this.value + "px";

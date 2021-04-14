@@ -5,7 +5,7 @@
     
 <table class="table">
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>post_image</td><td>{{object.get_photo_status}}</td></tr>
+    <tr><td>post_image</td><td><img src="{{object.get_photo_url}}"></td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
