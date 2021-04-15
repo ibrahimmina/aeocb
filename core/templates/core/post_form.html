@@ -93,7 +93,8 @@
           <label class="col-form-label" for="hashtag">Hashtag</label>
         </div>
         <div class="col-md-9">
-          <textarea class="form-control" id="hashtag" type="text" name="hashtag" value="{{ object.hashtag }}"></textarea>
+          <textarea class="form-control" id="hashtag" type="text" name="hashtag" value="{{ object.hashtag }}" onkeydown="wordLimit()"></textarea>
+          <div id="max_num_hashtag" class="form-text"></div>
         </div>
         <div class="col-md-1">
           <input type="checkbox" id="add_hashtag_post" onclick="checkBoxClicked();">
@@ -131,13 +132,26 @@
   var datetime = document.getElementById("datetime");
   var theme = document.getElementById("theme");
   var theme_hasthag = document.getElementById("theme_hasthag");
+  var max_num_hashtag = document.getElementById("max_num_hashtag");
+  var max_hashtags = 30;
+
+  function wordLimit(){
+    var words = hashtag.value.split(/\s+/);
+    var numWords = words.length;
+    if(numWords > max_hashtags){
+      max_num_hashtag.style.color = "rgb(255,0,0)";
+    }
+  }  
   function getThemes() {
-    console.log (datetime.value)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-      var myObj = JSON.parse(this.response);
-      theme.innerHTML = myObj[0]['theme'];
-      theme_hasthag.innerHTML = myObj[0]['theme_hashtag'];
+      if(xhttp.readyState === XMLHttpRequest.DONE) {
+        var myObj = JSON.parse(this.response);
+        theme.innerHTML = myObj[0]['theme'];
+        theme_hasthag.innerHTML = myObj[0]['theme_hashtag'];
+        max_hashtags = 30 - (myObj[0]['theme_hashtag'].split(/\s+/).length);
+        max_num_hashtag.innerHTML = "You can add only " + max_hashtags + " Hashtags";
+      }
     };
     xhttp.open("GET", "https://aeocb.herokuapp.com/core/api/v1/themes/?datetime=" + datetime.value, true);
     xhttp.send();
