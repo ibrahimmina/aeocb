@@ -137,6 +137,9 @@ def post_imageUpdate(request, pk):
     blob = BytesIO()
     background.save(blob, format='JPEG', quality=100)
     post_image_object = models.post_image.objects.get(id=pk)
+    if post_image_object.post_image and hasattr(post_image_object.post_image, 'url'):
+        post_image_object.post_image.delete() 
+        post_image_object.save()
     post_image_object.post_image.save(str(pk) + '.jpg', File(blob), save=False)
     post_image_object.save()
 
