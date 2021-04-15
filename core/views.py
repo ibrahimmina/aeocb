@@ -98,12 +98,9 @@ def post_imageUpdate(request, pk):
     image_height_ratio =int(request._post['current_image_height']) / background_height
 
     #resize logo
-    new_logo_width = int(logo_width * (int(request._post['logo_size_input'])/100) * logo_width_ratio)
-    new_logo_height = int(logo_height * (int(request._post['logo_size_input'])/100) * logo_height_ratio)
+    new_logo_width = int(logo_width  * logo_width_ratio)
+    new_logo_height = int(logo_height  * logo_height_ratio)
     new_logo_size = (new_logo_width,new_logo_height)
-    print (request._post['logo_size_input'])
-    print(logo.size)
-    print (new_logo_size)
     logo = logo.resize(new_logo_size)
     
     #Add Logo to Background
