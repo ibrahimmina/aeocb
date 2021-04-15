@@ -160,7 +160,21 @@
             </div>
           </div>
         </div>
-        
+
+        <div class = "row">
+          <div class = "col">
+            <label for="text_color" class="form-label">Text Color</label>
+            <div class="row align-items-center">
+              <div class="col-10">
+                <input type="color" value="#ff0000" id="text_color" onchange="pickTextColor()" > 
+              </div>
+              <div class="col-2">
+                <input type="text" value="rgb(255, 0, 0)" class="form-control" id="text_color_input" name="text_color_input" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h5>Logo Control</h5>
 
         <div class = "row">
@@ -212,7 +226,7 @@
                 <p class="card-text" id="post_text">{{ object.post.post_text }}</p>
             
                 <div style="position: relative; left: 0; top: 0">
-                    <p id="post_image_text" style="position: absolute;top: 0px;left: 0px;font-family: 'Work Sans';font-size: 8px;"></p>
+                    <p id="post_image_text" style="position: absolute;top: 0px;left: 0px;font-family: 'Work Sans';font-size: 8px;color:rgb(255,0,0)"></p>
                     <img src="/media/static/emptypost.png"  class="card-img-top" id="show_post_image">
                     <img src="/media/static/logo-aeocb.png" id="logo" style="position: absolute;top: 0px;left: 0px;width: 50%;height: 50%">
                 </div>
@@ -241,6 +255,7 @@
   var logo_move_vertical_input = document.getElementById("logo_move_vertical_input");
   var logo_size_input = document.getElementById("logo_size_input");
 
+
   var current_logo_width = document.getElementById("current_logo_width");
   var current_logo_height = document.getElementById("current_logo_height");
   var current_image_width = document.getElementById("current_image_width");
@@ -263,6 +278,8 @@
 
   var final_image_text = "";
   var final_image_hashtag = "";
+
+  var post_text_final = document.getElementById("post_text_final");
 
   function checkBoxClickedImage(){
 
@@ -294,14 +311,17 @@
     final_image_hashtag = final_image_text_Hashtag;
 
     document.getElementById("post_image_text").innerHTML = final_image_text + "\n" + final_image_hashtag;
+    post_text_final.value = final_image_text + "\n" + final_image_hashtag;
   }
     var loadFile = function(event) {
         var show_post_image = document.getElementById('show_post_image');
         show_post_image.src = URL.createObjectURL(event.target.files[0]);
-        slider_logo_horizontal.max = show_post_image.height;
-        slider_verse_horizontal.max = show_post_image.height;
-        slider_logo_vertical.max = show_post_image.width;
-        slider_verse_vertical.max = show_post_image.width;        
+        console.log(show_post_image.width)
+        console.log(show_post_image.height)
+        slider_logo_vertical.max = show_post_image.height;
+        slider_verse_vertical.max = show_post_image.height;
+        slider_logo_horizontal.max = show_post_image.width;
+        slider_verse_horizontal.max = show_post_image.width;        
         current_logo_width.value = logo.width;
         current_logo_height.value = logo.height;
         current_image_width.value = show_post_image.width;
@@ -311,24 +331,32 @@
 
     function PageLoadFunction(){
         var show_post_image = document.getElementById("show_post_image");
-        slider_logo_horizontal.max = show_post_image.height;
-        slider_verse_horizontal.max = show_post_image.height;
-        slider_logo_vertical.max = show_post_image.width;
-        slider_verse_vertical.max = show_post_image.width;
+        slider_logo_vertical.max = show_post_image.height;
+        slider_verse_vertical.max = show_post_image.height;
+        slider_logo_horizontal.max = show_post_image.width;
+        slider_verse_horizontal.max = show_post_image.width;
         current_logo_width.value = logo.width;
         current_logo_height.value = logo.height;
         current_image_width.value = show_post_image.width;
         current_image_height.value = show_post_image.height;
     }
-    PageLoadFunction()
     
     slider_logo_horizontal.oninput = function() {
-        logo.style.left = this.value + "px";
+        if (this.value>logo.width){
+          logo.style.left = (this.value-logo.width) + "px";
+        }else{
+          logo.style.left = this.value + "px";
+        }
         logo_move_horizontal_input.value = this.value;
     }
     
     slider_logo_vertical.oninput = function() {
-        logo.style.top = this.value + "px";
+        
+        if (this.value>logo.height){
+          logo.style.top = (this.value-logo.height) + "px";
+        }else{
+          logo.style.top = this.value + "px";
+        }        
         logo_move_vertical_input.value = this.value;
     }    
     
@@ -374,6 +402,17 @@
         post_image_text.style.fontFamily  = "Fira Sans";
         text_font_input.value = "FS";
     }      
+
+    var text_color = document.getElementById("text_color");
+    var text_color_input = document.getElementById("text_color_input");
+    function pickTextColor(){
+      var hex_code = text_color.value.split("");
+      var r = parseInt(hex_code[1]+hex_code[2],16);
+      var g = parseInt(hex_code[3]+hex_code[4],16);
+      var b = parseInt(hex_code[5]+hex_code[6],16);
+      text_color_input.value = "rgb(" + r + ", " + g + ", " + b + ")";
+      post_image_text.style.color = "rgb(" + r + ", " + g + ", " + b + ")";
+    }    
   
   </script>
 {% endblock %}

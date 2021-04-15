@@ -36,7 +36,7 @@ class post(models.Model):
     english = models.TextField(max_length=255,blank=True)
     hashtag = models.TextField(max_length=255,blank=True)
     post_type = models.CharField(max_length=30,blank=True)
-    post_text = models.TextField(max_length=255)
+    post_text = models.TextField(blank=True)
     french = models.TextField(max_length=255,blank=True)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     kirundi = models.TextField(max_length=255,blank=True)

@@ -86,11 +86,16 @@ def post_imageUpdate(request, pk):
     logo = Image.open(settings.MEDIA_ROOT + '/static/logo-aeocb.png')
     logo_width, logo_height = logo.size
 
+    #print sizes
+    print (request._post)
+    print ("logo size: " + str(logo.size))
+    print ("Image size: " + str(background.size))
+
     #get ratios
     logo_width_ratio = int(request._post['current_logo_width']) / logo_width
     logo_height_ratio = int(request._post['current_logo_height']) / logo_height
     image_width_ratio = int(request._post['current_image_width']) / background_width
-    image_height_ratio = int(request._post['current_image_height']) / background_height
+    image_height_ratio =int(request._post['current_image_height']) / background_height
 
     #resize logo
     new_logo_width = int(logo_width * (int(request._post['logo_size_input'])/100) * logo_width_ratio)
@@ -102,7 +107,18 @@ def post_imageUpdate(request, pk):
     logo = logo.resize(new_logo_size)
     
     #Add Logo to Background
-    background.paste(logo,(int(int(request._post['logo_move_horizontal_input']) * image_width_ratio),int(int(request._post['logo_move_vertical_input'])* image_height_ratio)),logo)
+    logo_left = int(int(request._post['logo_move_horizontal_input']) * (1/image_width_ratio))
+    
+    if ((logo_left + new_logo_width) > background_width):
+        logo_left = background_width - new_logo_width
+
+    logo_top = int(int(request._post['logo_move_vertical_input']) * (1/image_height_ratio))
+    
+    if ((logo_top + new_logo_height) > background_height):
+        logo_top = background_height - new_logo_height
+
+    
+    background.paste(logo,(logo_left,logo_top),logo)
 
     #Add Text to Background
     font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/WorkSans-VariableFont_wght.ttf", int(request._post['text_size_input']), encoding="unic")
@@ -114,8 +130,8 @@ def post_imageUpdate(request, pk):
         font = ImageFont.truetype(settings.MEDIA_ROOT + "/font/FiraSans-Regular.ttf", int(request._post['text_size_input']), encoding="unic")
     message = request._post['post_text_final']
     draw = ImageDraw.Draw(background)
-    (x, y) = (int(int(request._post['text_move_horizontal_input']) * image_width_ratio),int(int(request._post['text_move_vertical_input'])*image_height_ratio))
-    color = 'rgb(255, 255, 255)'
+    (x, y) = (int(int(request._post['text_move_horizontal_input']) * int(1/image_width_ratio)),int(int(request._post['text_move_vertical_input'])* int(1/image_height_ratio)))
+    color = request._post['text_color_input']
     draw.text((x, y), message, fill=color, font=font)
 
     #Save Background

@@ -4,9 +4,11 @@
 {% block content %}
     
 <table class="table">
-    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>post_image</td><td><img src="{{object.get_photo_url}}"></td></tr>
-    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>Pot Date & Time</td><td>{{ object.post.datetime }}</td></tr>
+    <tr><td>Post Type</td><td>{{ object.post.post_type }}</td></tr>
+    <tr><td>Post Text</td><td>{{ object.post.post_text }}</td></tr>        
+    <tr><td>Post Image</td><td><img src="{{object.get_photo_url}}"></td></tr>
+    <tr><td>Last Updated</td><td>{{ object.last_updated }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
