@@ -43,7 +43,11 @@
           <label class="col-sm-2" for="post_type">Post Type</label>
         </div>
         <div class="col-md-11">
-          <input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}">
+          <!--input class="form-control col-sm-10" id="post_type" type="text" name="post_type" value="{{ object.post_type }}"-->
+          <select class="form-select" id= "post_type" name="post_type">
+              <option value="Verse">Verse</option>
+              <option value="Qoute">Qoute</option>
+          </select>          
         </div>
       </div>  
       <div class="row align-items-center mb-3">

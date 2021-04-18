@@ -2,13 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
-<p>
-    <a class="btn btn-light" href="{% url 'core_post_list' %}">
-    post Listing
-    </a>
-</p>
-    
+     
 <table class="table">
     <tr><td>datetime</td><td>{{ object.datetime }}</td></tr>
     <tr><td>english</td><td>{{ object.english }}</td></tr>
